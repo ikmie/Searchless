@@ -1,24 +1,6 @@
 //This code is for reading the csv file
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-void studentInformation();
-
-//Will be used to keep track of the amount of students, starts at 0
-int TotalStudents = 0;
-//will be used to keep track of the max score
-float MaxScore=-1;
-
-//Data struct with student information
-struct students{
-    int No;
-    long long int ID;
-    char name[30];
-    int sec;
-    float score;
-}student[1000];
+#include "Initialize.h"
 
 //function for reading csv file
 void studentInformation(){
