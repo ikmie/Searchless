@@ -2,6 +2,9 @@
 
 #include "Grouper.h"
 
+// Define the root variable here
+node* root = NULL;
+
 //This is the circular linked list structure 
 typedef struct group{
     int group;
@@ -517,11 +520,3 @@ void GroupFile(int n){
 
     printf("\n<<-----Group Sheet successully created!----->>\n\n");
 }
-
-//For testing
-/*int main(){
-
-    studentInformation();
-    CreateGroup();
-
-}*/
