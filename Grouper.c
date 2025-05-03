@@ -19,7 +19,7 @@ int Index[1000];
 //Make tail of circular linked list a global variable
 group* head = NULL;
 
-//Group Making Function
+//Group Sheet making Function
 void GroupFile(int n);
 
 //Binary Tree Functions
@@ -311,12 +311,12 @@ void InsertTree(){
             if(student[i].score < temp->data){
 
                 temp = temp->left;
-                //printf("student %d, score %.2f to left\n",student[i].No ,student[i].score); //test to see which brabch it's going to
+                //printf("student %d, score %.2f to left\n",student[i].No ,student[i].score); //test to see which branch it's going to
 
             }else{
                 //temp pointer goes right if student score is more than temp->data
                 temp = temp->right;
-                //printf("student %d, score %.2f to right\n",student[i].No ,student[i].score); //test to see which brabch it's going to
+                //printf("student %d, score %.2f to right\n",student[i].No ,student[i].score); //test to see which branch it's going to
 
             }
 
