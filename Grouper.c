@@ -519,9 +519,9 @@ void GroupFile(int n){
 }
 
 //For testing
-int main(){
+/*int main(){
 
     studentInformation();
     CreateGroup();
 
-}
+}*/
