@@ -1,9 +1,9 @@
-#ifndef Grouper_H
-#define Grouper_H
+#ifndef GROUPER_H
+#define GROUPER_H
 
 #include "Initialize.h"
 
-//This is the tree node structure
+
 typedef struct node{
     float data;
     int nStudents;
@@ -12,7 +12,7 @@ typedef struct node{
 	struct node* right;
 }node;
 
-node* root = NULL;
+extern node* root;
 
 void CreateGroup();
 void DeleteTree(node* root);
