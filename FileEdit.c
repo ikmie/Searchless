@@ -1,6 +1,11 @@
 #include "FileEdit.h"
 
 void addStudent(int No, long long int ID, const char* name, int sec, float score) {
+    if (TotalStudents >= 1000) {
+        printf("Capacity Reached.\n");
+        return;
+    }
+    
     student[TotalStudents].No = No;
     student[TotalStudents].ID = ID;
     strncpy(student[TotalStudents].name, name, sizeof(student[TotalStudents].name) - 1);
