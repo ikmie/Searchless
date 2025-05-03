@@ -186,7 +186,7 @@ void CreateGroup(){
             GroupFile(n);   //Create the group file
             break;
         }else if(choice==2){
-            printf("\n<<---------------------No file made--------------------->>\n");
+            printf("\n<<---------------------No file made--------------------->>\n\n");
             break;
         }else{
             printf("\n<<--------------Please enter valid option!-------------->>\n");
@@ -519,9 +519,9 @@ void GroupFile(int n){
 }
 
 //For testing
-/*int main(){
+int main(){
 
     studentInformation();
     CreateGroup();
 
-}*/
+}
