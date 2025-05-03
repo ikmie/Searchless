@@ -1,15 +1,6 @@
 //This code is for the main grouping function
 
-#include "Initialize.h"
-
-//This is the tree node structure
-typedef struct node{
-    float data;
-    int nStudents;
-    int studentIndex[1000];
-    struct node* left;
-	struct node* right;
-}node;
+#include "Grouper.h"
 
 //This is the circular linked list structure 
 typedef struct group{
@@ -25,13 +16,10 @@ int rear = -1;
 float pri[1000];
 int Index[1000];
 
-//Make root of tree a global variable
-node* root = NULL;
 //Make tail of circular linked list a global variable
 group* head = NULL;
 
 //Group Making Function
-void CreateGroup();
 void GroupFile(int n);
 
 //Binary Tree Functions
@@ -41,7 +29,6 @@ node* insertLeft(node* parent, int data);
 node* insertRight(node* parent, int data);
 void InsertTree();
 void TraverseTree(float j);
-void DeleteTree(node* root);
 
 //Priority Queue Functions
 void enqueue(float score, int index);
