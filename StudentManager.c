@@ -16,10 +16,11 @@ void displayMenu() {
     printf("| 5. Search student by name                               |\n");
     printf("| 6. Display statistics                                   |\n");
     printf("| 7. Create student groups                                |\n");
-    printf("| 8. Add Student                                          |\n"); // Added option 8
-    printf("| 9. Delete Student                                       |\n"); // Added option 9
-    printf("| 10. Edit Student                                         |\n"); // Added option 10
-    printf("| 11. Exit                                                |\n"); // Changed 8 to 11
+    printf("| 8. Add Student                                          |\n"); // 8
+    printf("| 9. Delete Student                                       |\n"); // 9
+    printf("| 10. Edit Student                                        |\n"); // 10
+    printf("| 11. Save to CSV                                         |\n"); // 11
+    printf("| 12. Exit                                                |\n"); // Changed 8 to 11
     printf("|_________________________________________________________|\n");
     printf("\n>> Please enter your choice: ");
 }
@@ -357,8 +358,19 @@ void runStudentManager() {
                 }
                 break;
             }
+            
+            case 11: { // Case 11: Save to CSV
+                char filename[50];
+                printf("\n>> Enter filename to save (e.g., students.csv): ");
+                fgets(filename, 50, stdin);
+                filename[strcspn(filename, "\n")] = 0; // Remove newline
                 
-            case 11: // Changed from 8 to 11
+                saveToCSV(filename); // Call saveToCSV with filename
+                printf("\n<--- Student data saved successfully! --->\n");
+                break;
+            }
+
+            case 12: // Changed from 8 to 11
                 printf("\n<------------------- EXITING PROGRAM ------------------->\n");
                 printf("Thank you for using the Student Management System!\n");
                 keepRunning = 0;
