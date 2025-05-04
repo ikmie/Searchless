@@ -1,8 +1,6 @@
 // StudentManager.c
 
 #include "StudentManager.h"
-#include "FileEdit.h" // Include FileEdit.h
-#include "Search.h"   // Include Search.h
 #include <ctype.h>
 
 void displayMenu() {
@@ -18,7 +16,10 @@ void displayMenu() {
     printf("| 5. Search student by name                               |\n");
     printf("| 6. Display statistics                                   |\n");
     printf("| 7. Create student groups                                |\n");
-    printf("| 8. Exit                                                 |\n");
+    printf("| 8. Add Student                                          |\n"); // Added option 8
+    printf("| 9. Delete Student                                       |\n"); // Added option 9
+    printf("| 10. Edit Student                                         |\n"); // Added option 10
+    printf("| 11. Exit                                                |\n"); // Changed 8 to 11
     printf("|_________________________________________________________|\n");
     printf("\n>> Please enter your choice: ");
 }
@@ -107,11 +108,65 @@ void displayTopStudents(int n) {
 }
 
 void searchStudentByID(long long int studentID) {
-    searchbyID(studentID); // Use the searchbyID function from Search.c
+    int found = 0;
+    
+    for (int i = 0; i < TotalStudents; i++) {
+        if (student[i].ID == studentID) {
+            printf("\n<------------------- STUDENT FOUND ------------------->\n");
+            printf(" ________________________________________________________ \n");
+            printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
+            printf("|_____|____________|_________________________|_____|_______|\n");
+            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
+                student[i].No, student[i].ID, student[i].name, 
+                student[i].sec, student[i].score);
+            printf("|_____|____________|_________________________|_____|_______|\n");
+            found = 1;
+            break;
+        }
+    }
+    
+    if (!found) {
+        printf("\n<--- Student with ID %lld was not found! --->\n", studentID);
+    }
 }
 
 void searchStudentByName(char *name) {
-    searchbyName(name); // Use the searchbyName function from Search.c
+    int found = 0;
+    char searchName[30];
+    char tempName[30];
+    
+    // Convert search name to lowercase for case-insensitive search
+    strcpy(searchName, name);
+    for (int i = 0; searchName[i]; i++) {
+        searchName[i] = tolower(searchName[i]);
+    }
+    
+    printf("\n<------------------- SEARCH RESULTS ------------------->\n");
+    printf(" ________________________________________________________ \n");
+    printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
+    printf("|_____|____________|_________________________|_____|_______|\n");
+    
+    for (int i = 0; i < TotalStudents; i++) {
+        // Convert student name to lowercase for comparison
+        strcpy(tempName, student[i].name);
+        for (int j = 0; tempName[j]; j++) {
+            tempName[j] = tolower(tempName[j]);
+        }
+        
+        // Check if search term appears in student name
+        if (strstr(tempName, searchName) != NULL) {
+            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
+                student[i].No, student[i].ID, student[i].name, 
+                student[i].sec, student[i].score);
+            found = 1;
+        }
+    }
+    
+    printf("|_____|____________|_________________________|_____|_______|\n");
+    
+    if (!found) {
+        printf("\n<--- No students matching '%s' were found! --->\n", name);
+    }
 }
 
 void displayStatistics() {
@@ -213,7 +268,7 @@ void runStudentManager() {
                 printf("\n>> Enter student ID to search: ");
                 scanf("%lld", &id);
                 getchar(); // Clear input buffer
-                searchStudentByID(id); // Use the searchStudentByID function
+                searchStudentByID(id);
                 break;
             }
                 
@@ -223,7 +278,7 @@ void runStudentManager() {
                 fgets(name, 30, stdin);
                 // Remove trailing newline character
                 name[strcspn(name, "\n")] = 0;
-                searchStudentByName(name); // Use the searchStudentByName function
+                searchStudentByName(name);
                 break;
             }
                 
@@ -235,7 +290,75 @@ void runStudentManager() {
                 CreateGroup();
                 break;
                 
-            case 8:
+            case 8: { // Case 8: Add Student
+                int no, sec;
+                long long int id;
+                char name[30];
+                float score;
+                
+                printf("\n>> Enter student details:\n");
+                printf("   No: ");
+                scanf("%d", &no);
+                getchar(); // Clear input buffer
+                printf("   ID: ");
+                scanf("%lld", &id);
+                getchar(); // Clear input buffer
+                printf("   Name: ");
+                fgets(name, 30, stdin);
+                name[strcspn(name, "\n")] = 0; // Remove newline
+                printf("   Section: ");
+                scanf("%d", &sec);
+                getchar(); // Clear input buffer
+                printf("   Score: ");
+                scanf("%f", &score);
+                getchar(); //clear input buffer
+                
+                addStudent(no, id, name, sec, score); // Call addStudent with arguments
+                break;
+            }
+            case 9: { // Case 9: Delete Student
+                long long int id;
+                printf("\n>> Enter student ID to delete: ");
+                scanf("%lld", &id);
+                getchar(); // Clear input buffer
+                
+                int result = deleteStudent(id); // Call deleteStudent with argument
+                if (result) {
+                    printf("\n<--- Student deleted successfully! --->\n");
+                } else {
+                    printf("\n<--- Student with ID %lld not found! --->\n", id);
+                }
+                break;
+            }
+            case 10: { // Case 10: Edit Student
+                long long int id;
+                char newName[30];
+                int newSec;
+                float newScore;
+                
+                printf("\n>> Enter student ID to edit: ");
+                scanf("%lld", &id);
+                getchar(); // Clear input buffer
+                printf("   New Name: ");
+                fgets(newName, 30, stdin);
+                newName[strcspn(newName, "\n")] = 0; // Remove newline
+                printf("   New Section: ");
+                scanf("%d", &newSec);
+                getchar(); // Clear input buffer
+                printf("   New Score: ");
+                scanf("%f", &newScore);
+                getchar(); //clear input buffer
+                
+                int result = editStudent(id, newName, newSec, newScore); // Call editStudent with arguments
+                if (result) {
+                    printf("\n<--- Student edited successfully! --->\n");
+                } else {
+                    printf("\n<--- Student with ID %lld not found! --->\n", id);
+                }
+                break;
+            }
+                
+            case 11: // Changed from 8 to 11
                 printf("\n<------------------- EXITING PROGRAM ------------------->\n");
                 printf("Thank you for using the Student Management System!\n");
                 keepRunning = 0;
