@@ -1,6 +1,8 @@
-//student manager interface
+// StudentManager.c
 
 #include "StudentManager.h"
+#include "FileEdit.h" // Include FileEdit.h
+#include "Search.h"   // Include Search.h
 #include <ctype.h>
 
 void displayMenu() {
@@ -93,7 +95,7 @@ void displayTopStudents(int n) {
     printf("\n<------------------- TOP %d STUDENTS ------------------->\n", n);
     printf(" ________________________________________________________ \n");
     printf("| RANK | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf("|______|____________|_________________________|_____|_______|\n");
     
     for (int i = 0; i < n; i++) {
         printf("| %3d  | %lld | %-22s | %2d  | %5.1f |\n", 
@@ -105,65 +107,11 @@ void displayTopStudents(int n) {
 }
 
 void searchStudentByID(long long int studentID) {
-    int found = 0;
-    
-    for (int i = 0; i < TotalStudents; i++) {
-        if (student[i].ID == studentID) {
-            printf("\n<------------------- STUDENT FOUND ------------------->\n");
-            printf(" ________________________________________________________ \n");
-            printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-            printf("|_____|____________|_________________________|_____|_______|\n");
-            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
-                student[i].No, student[i].ID, student[i].name, 
-                student[i].sec, student[i].score);
-            printf("|_____|____________|_________________________|_____|_______|\n");
-            found = 1;
-            break;
-        }
-    }
-    
-    if (!found) {
-        printf("\n<--- Student with ID %lld was not found! --->\n", studentID);
-    }
+    searchbyID(studentID); // Use the searchbyID function from Search.c
 }
 
 void searchStudentByName(char *name) {
-    int found = 0;
-    char searchName[30];
-    char tempName[30];
-    
-    // Convert search name to lowercase for case-insensitive search
-    strcpy(searchName, name);
-    for (int i = 0; searchName[i]; i++) {
-        searchName[i] = tolower(searchName[i]);
-    }
-    
-    printf("\n<------------------- SEARCH RESULTS ------------------->\n");
-    printf(" ________________________________________________________ \n");
-    printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-    printf("|_____|____________|_________________________|_____|_______|\n");
-    
-    for (int i = 0; i < TotalStudents; i++) {
-        // Convert student name to lowercase for comparison
-        strcpy(tempName, student[i].name);
-        for (int j = 0; tempName[j]; j++) {
-            tempName[j] = tolower(tempName[j]);
-        }
-        
-        // Check if search term appears in student name
-        if (strstr(tempName, searchName) != NULL) {
-            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
-                student[i].No, student[i].ID, student[i].name, 
-                student[i].sec, student[i].score);
-            found = 1;
-        }
-    }
-    
-    printf("|_____|____________|_________________________|_____|_______|\n");
-    
-    if (!found) {
-        printf("\n<--- No students matching '%s' were found! --->\n", name);
-    }
+    searchbyName(name); // Use the searchbyName function from Search.c
 }
 
 void displayStatistics() {
@@ -265,7 +213,7 @@ void runStudentManager() {
                 printf("\n>> Enter student ID to search: ");
                 scanf("%lld", &id);
                 getchar(); // Clear input buffer
-                searchStudentByID(id);
+                searchStudentByID(id); // Use the searchStudentByID function
                 break;
             }
                 
@@ -275,7 +223,7 @@ void runStudentManager() {
                 fgets(name, 30, stdin);
                 // Remove trailing newline character
                 name[strcspn(name, "\n")] = 0;
-                searchStudentByName(name);
+                searchStudentByName(name); // Use the searchStudentByName function
                 break;
             }
                 
@@ -299,3 +247,4 @@ void runStudentManager() {
         }
     }
 }
+

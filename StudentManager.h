@@ -3,6 +3,8 @@
 
 #include "Initialize.h"
 #include "Grouper.h"
+#include "Search.h"
+#include "FileEdit.h"
 
 // Function prototypes for student manager
 void displayMenu();
