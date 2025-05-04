@@ -1,4 +1,7 @@
+
+
 #include "Search.h"
+
 
 void searchbyID(long long int id) {
     int isFound = 0;
@@ -19,7 +22,7 @@ void searchbyID(long long int id) {
 void searchbyName(const char *name) {
     int isFound = 0;
     for (int index = 0; index < TotalStudents; index++) {
-        if (strcasestr(student[index].name, name)) {
+        if (strcasecmp(student[index].name, name)) {
             printf("Match found:\n");
             printf("No: %d\nID: %lld\nName: %s\nSection: %d\nScore: %.2f\n\n",
                    student[index].No, student[index].ID, student[index].name,
