@@ -23,6 +23,6 @@ This program provides a comprehensive system for managing student records using 
 # Compilation Instructions
 To compile the program:
 
-gcc Initialize.c StudentManager.c -o StudentManager.exe
+gcc main.c StudentManager.c FileEdit.c Search.c Initialize.c Grouper.c -o StudentManagementSystem.exe
 
 # This program requires ScoreSheet.csv to run
