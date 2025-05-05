@@ -27,9 +27,9 @@ void displayMenu() {
 
 void displayAllStudents() {
     printf("\n<------------------- ALL STUDENTS ------------------->\n");
-    printf(" ________________________________________________________ \n");
-    printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf(" __________________________________________________________ \n");
+    printf("| No. | STUDENT ID  |      STUDENT NAME      | SEC | SCORE |\n");
+    printf("|_____|_____________|________________________|_____|_______|\n");
     
     for (int i = 0; i < TotalStudents; i++) {
         printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
@@ -37,7 +37,7 @@ void displayAllStudents() {
             student[i].sec, student[i].score);
     }
     
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf("|_____|_____________|________________________|_____|_______|\n");
     printf("| Total students: %3d                                   |\n", TotalStudents);
     printf("|_______________________________________________________|\n");
 }
@@ -47,9 +47,9 @@ void displayStudentsBySection(int section) {
     float totalScore = 0.0, avgScore = 0.0;
     
     printf("\n<----------- STUDENTS IN SECTION %d ----------->\n", section);
-    printf(" ________________________________________________________ \n");
-    printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf(" __________________________________________________________ \n");
+    printf("| No. | STUDENT ID  |      STUDENT NAME      | SEC | SCORE |\n");
+    printf("|_____|_____________|________________________|_____|_______|\n");
     
     for (int i = 0; i < TotalStudents; i++) {
         if (student[i].sec == section) {
@@ -65,7 +65,7 @@ void displayStudentsBySection(int section) {
         avgScore = totalScore / count;
     }
     
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf("|_____|_____________|________________________|_____|_______|\n");
     printf("| Total students: %3d                                   |\n", count);
     printf("| Average score: %5.2f                                  |\n", avgScore);
     printf("|_______________________________________________________|\n");
@@ -95,9 +95,9 @@ void displayTopStudents(int n) {
     }
     
     printf("\n<------------------- TOP %d STUDENTS ------------------->\n", n);
-    printf(" ________________________________________________________ \n");
-    printf("| RANK | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
-    printf("|______|____________|_________________________|_____|_______|\n");
+    printf(" ___________________________________________________________ \n");
+    printf("| RANK | STUDENT ID  |     STUDENT NAME       | SEC | SCORE |\n");
+    printf("|______|_____________|________________________|_____|_______|\n");
     
     for (int i = 0; i < n; i++) {
         printf("| %3d  | %lld | %-22s | %2d  | %5.1f |\n", 
@@ -105,7 +105,7 @@ void displayTopStudents(int n) {
             tempStudents[i].sec, tempStudents[i].score);
     }
     
-    printf("|_____|____________|_________________________|_____|_______|\n");
+    printf("|______|_____________|________________________|_____|_______|\n");
 }
 
 void searchStudentByID(long long int studentID) {
@@ -114,10 +114,10 @@ void searchStudentByID(long long int studentID) {
     for (int i = 0; i < TotalStudents; i++) {
         if (student[i].ID == studentID) {
             printf("\n<------------------- STUDENT FOUND ------------------->\n");
-            printf(" ________________________________________________________ \n");
+            printf(" __________________________________________________________ \n");
             printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
             printf("|_____|____________|_________________________|_____|_______|\n");
-            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
+            printf("| %3d | %lld| %-22s  | %2d  | %5.1f |\n", 
                 student[i].No, student[i].ID, student[i].name, 
                 student[i].sec, student[i].score);
             printf("|_____|____________|_________________________|_____|_______|\n");
@@ -143,7 +143,7 @@ void searchStudentByName(char *name) {
     }
     
     printf("\n<------------------- SEARCH RESULTS ------------------->\n");
-    printf(" ________________________________________________________ \n");
+    printf(" __________________________________________________________ \n");
     printf("| No. | STUDENT ID |      STUDENT NAME       | SEC | SCORE |\n");
     printf("|_____|____________|_________________________|_____|_______|\n");
     
@@ -156,7 +156,7 @@ void searchStudentByName(char *name) {
         
         // Check if search term appears in student name
         if (strstr(tempName, searchName) != NULL) {
-            printf("| %3d | %lld | %-22s | %2d  | %5.1f |\n", 
+            printf("| %3d | %lld| %-22s  | %2d  | %5.1f |\n", 
                 student[i].No, student[i].ID, student[i].name, 
                 student[i].sec, student[i].score);
             found = 1;
@@ -210,24 +210,24 @@ void displayStatistics() {
     // Display statistics
     printf("\n<------------------- CLASS STATISTICS ------------------->\n");
     printf(" ________________________________________________________ \n");
-    printf("| Total Students: %-38d |\n", TotalStudents);
-    printf("| Average Score: %-38.2f |\n", average);
-    printf("| Minimum Score: %-38.2f |\n", minScore);
-    printf("| Maximum Score: %-38.2f |\n", maxScore);
+    printf("| Total Students: %-38d \n", TotalStudents);
+    printf("| Average Score: %-38.2f \n", average);
+    printf("| Minimum Score: %-38.2f \n", minScore);
+    printf("| Maximum Score: %-38.2f \n", maxScore);
     printf("|________________________________________________________|\n");
-    printf("| Section 31 Students: %-32d |\n", section31Count);
-    printf("| Section 31 Average: %-32.2f |\n", section31Avg);
-    printf("| Section 32 Students: %-32d |\n", section32Count);
-    printf("| Section 32 Average: %-32.2f |\n", section32Avg);
+    printf("| Section 31 Students: %-32d \n", section31Count);
+    printf("| Section 31 Average: %-32.2f \n", section31Avg);
+    printf("| Section 32 Students: %-32d \n", section32Count);
+    printf("| Section 32 Average: %-32.2f \n", section32Avg);
     printf("|________________________________________________________|\n");
-    printf("| Score Distribution:                                 |\n");
-    printf("| 0-25: %-6d (%-6.2f%%)                               |\n", 
+    printf("| Score Distribution:                                 \n");
+    printf("| 0-25: %-6d (%-6.2f%%)                               \n", 
         range0_25, (float)range0_25 / TotalStudents * 100);
-    printf("| 26-50: %-5d (%-6.2f%%)                               |\n", 
+    printf("| 26-50: %-5d (%-6.2f%%)                               \n", 
         range26_50, (float)range26_50 / TotalStudents * 100);
-    printf("| 51-75: %-5d (%-6.2f%%)                               |\n", 
+    printf("| 51-75: %-5d (%-6.2f%%)                               \n", 
         range51_75, (float)range51_75 / TotalStudents * 100);
-    printf("| 76-100: %-4d (%-6.2f%%)                               |\n", 
+    printf("| 76-100: %-4d (%-6.2f%%)                               \n", 
         range76_100, (float)range76_100 / TotalStudents * 100);
     printf("|________________________________________________________|\n");
 }
@@ -374,7 +374,9 @@ void runStudentManager() {
                 printf("\n<------------------- EXITING PROGRAM ------------------->\n");
                 printf("Thank you for using the Student Management System!\n");
                 keepRunning = 0;
+                exit(0); // Exit the program
                 break;
+            
                 
             default:
                 printf("\n<--- Invalid choice! Please try again. --->\n");
