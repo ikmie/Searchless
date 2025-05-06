@@ -532,9 +532,3 @@ void GroupFile(int n){
 
     printf("\n<<----------Group Sheet successully created!---------->>\n\n");
 }
-
-int main(){
-
-    studentInformation();
-    CreateGroup();
-}
