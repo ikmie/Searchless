@@ -50,9 +50,9 @@ void CreateGroup(){
 
     //Let user select how to make groups
     while(valid){
-        printf("\n<-------How would you like to create your groups?------->\n");
-        printf("     -Enter total number of groups      : Enter 1\n     -Enter number of students per group: Enter 2\n");
-        printf(">>Please select your option: ");
+        printf("\n<-------How would you like to create your groups?------->\n\n");
+        printf("     -Enter total number of groups      : Enter 1\n     -Enter number of students per group: Enter 2\n\n");
+        printf(">> Please select your option: ");
         scanf("%d",&choice);
 
         if(choice==1 || choice==2){
@@ -65,33 +65,38 @@ void CreateGroup(){
     valid=1;
     //Get the number of groups, loop if invalid
     while(valid){
-
+        
         if(choice==1){
-            printf(">>Please insert number of groups: ");
+            printf(">> Please insert number of groups: ");
             scanf("%d",&n);
 
             //loop if invalid
             if(n > TotalStudents || n < 1){
-                printf("\n<<---------Please enter a valid number!--------->>\n");
+                printf("\n<<-------------Please enter a valid number!------------>>\n");
             }else{
                 break;
             }
 
         }else if(choice==2){
-            printf(">>Please insert number of students per group: ");
+            printf(">> Please insert number of students per group: ");
             scanf("%d",&n);
-
-            n = TotalStudents/n; //find number of groups
-
+            
             //loop if invalid
             if(n > TotalStudents || n < 1){
-                printf("\n<<---------Please enter a valid number!--------->>\n");
-            }else{
-                break;
+                printf("\n<<-------------Please enter a valid number!------------>>\n");
+                continue;
             }
 
+            if(TotalStudents%n < 5){
+                n = TotalStudents/n; //find number of groups
+            }else{
+                n = (TotalStudents/n)+1; //find number of groups
+            }
+
+            break;
+
         }else{
-            printf("\n<<---------Please enter valid option!--------->>\n");
+            printf("\n<<--------------Please enter valid option!------------->>\n");
         }
     }
 
@@ -148,6 +153,7 @@ void CreateGroup(){
     printf("\n<--------------GROUPS CREATED SUCCESSFULLY--------------->\n");
 
     ptr =  head;      //set pointer to the start of linked list
+    float avrg=0;  //For calculating average score of each group
 
     //Loop through the linked lists and print out the students in each group
     for(int i=0;i<n;i++){
@@ -158,16 +164,22 @@ void CreateGroup(){
         printf("| STUDENT ID |      STUDENT NAME       | SECTION | SCORE |\n");
         printf("|____________|_________________________|_________|_______|\n");
 
+        avrg=0;    //Setting average to 0
+
 
         for(int j=0;j<ptr->gSize;j++){
 
             printf("| %lld  %-22s %7d %10.2f |\n",student[ptr->sIndex[j]].ID, student[ptr->sIndex[j]].name, 
-                    student[ptr->sIndex[j]].sec, student[ptr->sIndex[j]].score);
+                    student[ptr->sIndex[j]].sec, student[ptr->sIndex[j]].score);          
+            avrg=avrg+student[ptr->sIndex[j]].score;    //Get total score in group
 
         }
 
+        avrg=avrg/ptr->gSize;   //Get average score of group
+
         printf("|________________________________________________________|\n");
-        printf("| Total students in group:                        %3d    |\n",ptr->gSize);
+        printf("| Total students in group:                           %3d |\n",ptr->gSize);
+        printf("| Average score of group:                          %3.2f |\n",avrg);
         printf("|________________________________________________________|\n");
 
         ptr=ptr->next;
@@ -179,9 +191,9 @@ void CreateGroup(){
     while(valid){
 
         //Get selction
-        printf("\n<------Would you like to save groups as excel file?------>\n");
-        printf("     -Yes: Enter 1\n     -No : Enter 2\n");
-        printf(">>Please select your option: ");
+        printf("\n<------Would you like to save groups as excel file?----->\n\n");
+        printf("          -Yes: Enter 1\n          -No : Enter 2\n\n");
+        printf(">> Please select your option: ");
         scanf("%d",&choice);
         getchar();
 
@@ -189,10 +201,10 @@ void CreateGroup(){
             GroupFile(n);   //Create the group file
             break;
         }else if(choice==2){
-            printf("\n<<---------------------No file made--------------------->>\n\n");
+            printf("\n<<--------------------No file made-------------------->>\n\n");
             break;
         }else{
-            printf("\n<<--------------Please enter valid option!-------------->>\n");
+            printf("\n<<--------------Please enter valid option!------------->>\n");
         }
     }
 
@@ -518,5 +530,11 @@ void GroupFile(int n){
 
     fclose(file);
 
-    printf("\n<<-----Group Sheet successully created!----->>\n\n");
+    printf("\n<<----------Group Sheet successully created!---------->>\n\n");
+}
+
+int main(){
+
+    studentInformation();
+    CreateGroup();
 }
